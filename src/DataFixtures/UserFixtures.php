@@ -30,8 +30,28 @@ class UserFixtures extends Fixture
          $user->setEmail('dg@batibat.fr');
          $password = $this->encoder->encodePassword($user, 'dEqufr5@4ufu');
          $user->setPassword($password);
-
          $manager->persist($user);
+
+         $user = new User();
+         $user->setCivility('Madame');
+         $user->setName('Lejeune');
+         $user->setFirstname('Céline');
+         $user->setCompany('Agrolagro');
+         $user->setEmail('celine@agrolago.com');
+         $password = $this->encoder->encodePassword($user, 'He#ag3s3Etr');
+         $user->setPassword($password);
+         $manager->persist($user);
+
+         $user = new User();
+         $user->setCivility('Monsieur');
+         $user->setName('Lenoir');
+         $user->setFirstname('Simon');
+         $user->setCompany('Carbone 99');
+         $user->setEmail('carbone99@gmail.com');
+         $password = $this->encoder->encodePassword($user, 'g!PhA2retHa8');
+         $user->setPassword($password);
+         $manager->persist($user);
+
          $manager->flush();
     }
 }
