@@ -3,11 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity("email", message="L'adresse email est déjà prise. Veuillez en choisir une autre.")
  */
 class User implements UserInterface
 {
@@ -45,10 +47,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(message="Vous devez saisir votre email")
-     * @Assert\Email(
-     *     message = "L'adresse '{{ value }}' n'est pas une adresse valide",
-     *     checkMX = true
-     * )
+     * @Assert\Email(message = "L'adresse '{{ value }}' n'est pas une adresse valide")
      */
     private $email;
 
