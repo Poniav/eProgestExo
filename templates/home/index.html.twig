@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="h3 text-center"><a href="{{ path('home') }}">Gestion des clients</a></h1>
+            <a href="{{ path('login') }}" class="btn btn-primary mb-2">Connexion</a>
+        </div>
+        <div class="col-12">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success" id="success-alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                <hr class="mt-4 mb-4">
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        {{ form_label(form.civility) }}
+                        {{ form_widget(form.civility, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_label(form.name) }}
+                        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                        {% if form_errors(form.name) %}
+                            {{ form_errors(form.name) }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        {{ form_label(form.firstname) }}
+                        {{ form_widget(form.firstname, {'attr': {'class': 'form-control'}}) }}
+                        {% if form_errors(form.firstname) %}
+                            {{ form_errors(form.firstname) }}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_label(form.company) }}
+                        {{ form_widget(form.company, {'attr': {'class': 'form-control'}}) }}
+                        {% if form_errors(form.company) %}
+                            {{ form_errors(form.company) }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        {{ form_label(form.email) }}
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                        {% if form_errors(form.email) %}
+                            {{ form_errors(form.email) }}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_label(form.password) }}
+                        {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+                        {% if form_errors(form.password) %}
+                            {{ form_errors(form.password) }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-dark">Ajouter un client</button>
+                </div>
+            {{ form_end(form) }}
+            <hr class="mt-4 mb-4">
+        </div>
+        <div class="col-12">
+            <h2 class="h5 mt-3 mb-3">Liste des clients</h2>
+            <table class="table" data-order='[[ 2, "asc" ]]'>
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Civilité</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Société</th>
+                    <th scope="col">Email</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if users %}
+                    {% for user in users %}
+                        <tr>
+                            <th scope="row">{{ user.id }}</th>
+                            <td>{{ user.civility }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.firstname }}</td>
+                            <td>{{ user.company }}</td>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <p>Pas de clients pour le moment. Vous pouvez en ajouter avec le formulaire du haut.</p>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('.table').DataTable({
+                "paging": false,
+                "info": false,
+                "searching": false,
+                "order": [[ 2, "asc" ]]
+            });
+
+            $('#DataTables_Table_0_filter').hide();
+        } );
+    </script>
+{% endblock %}

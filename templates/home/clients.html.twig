@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Zone Clients{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-5 mt-5">
+                    <div class="alert alert-success">Vous êtes maintenant connecté sur votre espace client</div>
+                    <a href="{{ path('logout') }}">Se déconnecter</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
